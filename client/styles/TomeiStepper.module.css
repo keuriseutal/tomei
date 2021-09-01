@@ -1,0 +1,60 @@
+.stepperActiveLabel, .stepperLabel {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  text-transform: uppercase;
+}
+
+.stepperActiveLabel > span,
+.stepperLabel > span {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.stepperLabel > span {
+  color: #000;
+}
+
+.stepperActiveLabel > span {
+  color: rgb(0, 107, 206);
+}
+
+.stepperActiveLabel > span:nth-child(1),
+.stepperLabel > span:nth-child(1) {
+  display: inline-block;
+  padding-bottom: 0.5em;
+  font-weight: bold;
+}
+
+.stepperFilledIcon > span > svg,
+.stepperIcon > span > svg {
+  font-size: 4em;
+  border: 1px solid  rgb(0, 107, 206);
+  border-radius: 50%;
+}
+
+.stepperFilledIcon > span > svg > path,
+.stepperFilledIcon > span > svg > text,
+.stepperIcon > span > svg > text {
+  fill:  rgb(0, 107, 206);
+  font-weight: bold; 
+}
+
+.stepperIcon > span > svg {
+  color: white !important;
+}
+.stepperFilledIcon > span > svg {
+  color: rgb(205, 231, 255) !important;
+}
+
+.stepperLine > div {
+  top: 30px;
+  left: calc(-50% + 32px);
+  right: calc(50% + 32px);
+}
+
+.stepperLine > div > span {
+  border-top-width: 3px;
+  border-color: rgb(0, 107, 206);
+}

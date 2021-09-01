@@ -1,0 +1,65 @@
+.title {
+  color: #000;
+  background-color: #C5DCFA;
+  text-transform: uppercase;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 500;
+  font-size: 21px;
+  height: 2em;
+  line-height: 2em;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.message {
+  color: #000;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  padding: 2em 0em;
+  width: 90%;
+  text-align: justify;
+  margin: 0 auto;
+} 
+
+.avatarContainer {
+  text-align: center;
+}
+
+.avatarContainer > label {
+  vertical-align: middle;
+  color: #000;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.avatarContainer > label > input {
+  display: none;
+}
+
+.avatar {
+  height: 6.5em !important;
+  width: 6.5em !important;
+}
+
+.label {
+  color: #C7C7C7;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.controlInput > input {
+  border-radius: 1em;
+}
+
+.saveButton {
+  background-color: #C5DCFA !important;
+  color: #0A3977 !important;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
