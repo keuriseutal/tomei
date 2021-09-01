@@ -7,11 +7,6 @@ export class UserController {
 
     constructor(private service: UserService) { }
 
-    @Get('/hello-world')
-    async helloWorld(): Promise<string> {
-        return "Hello World from User Controller!";
-    }
-
     @Get()
     getAll() {
         return this.service.getUsers();
