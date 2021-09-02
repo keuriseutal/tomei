@@ -27,15 +27,21 @@
   font-weight: bold;
 }
 
-.stepperFilledIcon > span > svg,
+.stepperActiveCompletedIcon > span > svg,
+.stepperActiveIcon > span > svg,
 .stepperIcon > span > svg {
   font-size: 4em;
   border: 1px solid  rgb(0, 107, 206);
   border-radius: 50%;
 }
 
-.stepperFilledIcon > span > svg > path,
-.stepperFilledIcon > span > svg > text,
+.stepperCompletedIcon > span > svg {
+  font-size: 4em;
+}
+
+.stepperActiveCompletedIcon > span > svg > text,
+.stepperCompletedIcon > span > svg > path,
+.stepperActiveIcon > span > svg > text,
 .stepperIcon > span > svg > text {
   fill:  rgb(0, 107, 206);
   font-weight: bold; 
@@ -44,7 +50,10 @@
 .stepperIcon > span > svg {
   color: white !important;
 }
-.stepperFilledIcon > span > svg {
+
+.stepperActiveCompletedIcon > span > svg,
+.stepperCompletedIcon > span > svg,
+.stepperActiveIcon > span > svg {
   color: rgb(205, 231, 255) !important;
 }
 
@@ -57,4 +66,25 @@
 .stepperLine > div > span {
   border-top-width: 3px;
   border-color: rgb(0, 107, 206);
+}
+
+.saveButton {
+  background-color: #C5DCFA !important;
+  color: #0A3977 !important;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.backButton {
+  color: #0A3977 !important;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.hide {
+  display: none;
 }
