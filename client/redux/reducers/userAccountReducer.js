@@ -2,6 +2,7 @@ import {
     GET_USER_ACCOUNTS,
     GET_USER_ACCOUNT,
     ADD_USER_ACCOUNT,
+    ADD_USER_ACCOUNT_AVATAR,
     UPDATE_USER_ACCOUNT,
     DELETE_USER_ACCOUNT,
     USER_ACCOUNT_ERROR,
@@ -33,6 +34,12 @@ const UserAccountReducer = (state = initialState, action) => {
             return {
                 ...state,
                 userAccounts: [...state.userAccounts, action.payload],
+                userAccount: action.payload,
+                loading: false
+            }
+        case ADD_USER_ACCOUNT_AVATAR:
+            return {
+                ...state,
                 loading: false
             }
         case DELETE_USER_ACCOUNT:

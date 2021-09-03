@@ -31,4 +31,5 @@ export class UserService {
         const user = await this.getUser(id);
         return await this.usersRepository.delete(user);
     }
+
 }

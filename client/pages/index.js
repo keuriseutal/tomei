@@ -1,13 +1,11 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
-import { Container } from '@material-ui/core';
 
 import { Provider } from 'react-redux';
 import store from '../redux/store';
 
 import TomeiStepper from '../components/TomeiStepper';
-import TomeiForm from '../components/TomeiForm';
 
 const Home = () => {
 
@@ -38,7 +36,6 @@ const Home = () => {
 
         <main className={styles.main}>
           <Image src="/Logo.png" alt="Tomei Logo" width={210} height={60} />
-
           <div className={styles.stepper}>
             <TomeiStepper />
           </div>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   makeStyles,
   Stepper,
@@ -10,12 +10,12 @@ import {
 } from '@material-ui/core';
 import styles from '../styles/TomeiStepper.module.css';
 
+import { connect } from 'react-redux';
+import { addUserAccount, uploadAvatar, setLoading } from '../redux/actions/userAccountActions';
+
 import TomeiForm from './TomeiForm';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-  },
   buttonContainer: {
     width: "90%",
   }
@@ -31,11 +31,11 @@ const getSteps = () => {
   ];
 };
 
-const getStepContent = (stepIndex) => {
+const getStepContent = (stepIndex, formDetails, setFormDetails, error, setError) => {
   switch (stepIndex) {
     case 0:
       return (
-        <TomeiForm
+        <TomeiForm key={0} formDetails={formDetails} setFormDetails={setFormDetails} error={error} setError={setError}
           title="Create Your Account"
           message="Because there will be documents that you need to prepare to apply for the loan, let's start
                   off by creating a password so that you can login to your account once you have these documents ready."
@@ -43,35 +43,35 @@ const getStepContent = (stepIndex) => {
       );
     case 1: 
       return (
-        <TomeiForm
+        <TomeiForm key={1}
           title="Personal Information"
           message=""
         />
       );
     case 2: 
       return (
-        <TomeiForm
+        <TomeiForm key={2}
           title="Employment Details"
           message=""
         />
       );
     case 3: 
       return (
-        <TomeiForm
+        <TomeiForm key={3}
           title="Upload Documents"
           message=""
         />
       );
     case 4: 
       return (
-        <TomeiForm
+        <TomeiForm key={4}
           title="Summary"
           message=""
         />
       );
     default:
       return (
-        <TomeiForm
+        <TomeiForm key={5}
           title="Title not Found"
           message=""
         />
@@ -79,26 +79,89 @@ const getStepContent = (stepIndex) => {
   }
 };
 
-const TomeiStepper = () => {
+const TomeiStepper = ({user, addUserAccount, uploadAvatar, setLoading}) => {
+
+  const { loading } = user;
+
   const classes = useStyles();
+  const initialState = {
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    avatar: null,
+  };
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState(new Set());
+  const [formDetails, setFormDetails] = useState(initialState);
+  const [error, setError] = useState(initialState);
+  const [isSaving, setIsSaving] = useState(false);
+
+  useEffect(() => {
+    if(loading) {
+      setIsSaving(true);
+    }
+
+    if(!loading && isSaving) {
+      handleNext();
+    }
+  }, [loading])
 
   const steps = getSteps();
 
+  const reset = () => {
+    setFormDetails(initialState);
+    setError(initialState);
+    setIsSaving(false);
+  }
+
+  const isFormFilled = () => {
+    return Object.values(formDetails).filter(value => value !== "").length === Object.keys(error).length;
+  }
+  
+  const hasNoError = () => {
+    return Object.values(error).filter(value => value === "").length === Object.keys(error).length;
+  }
+
+  const isNotEmpty = () => {
+    const { name, email, password, confirmPassword, avatar } = formDetails;
+    setError({
+      name: name === "" ? "Name is required" : "",
+      email: email === "" ? "Email is required" : "",
+      password: password === "" ? "Password is required" : "",
+      confirmPassword: confirmPassword === "" ? "Confirm Password is required" : "",
+      avatar: avatar === null ? "Avatar is required" : ""
+    });
+  }
+
+  const validateFormDetails = () => {
+    if(activeStep === 0) {
+      isNotEmpty();
+
+      if(isFormFilled() && hasNoError()) {
+        setIsSaving(true);     
+        setLoading();
+        uploadAvatar(formDetails.avatar);
+        addUserAccount(formDetails);
+      }
+      
+      return;
+    }
+    handleNext();    
+  }
+  
   const handleNext = () => {
     const newCompleted = new Set(completed);
     newCompleted.add(activeStep);
     setCompleted(newCompleted);
-
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    reset();
   };
 
   const handleBack = () => {
     const newCompleted = new Set(completed);
     newCompleted.delete(activeStep);
     setCompleted(newCompleted);
-
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
@@ -158,12 +221,14 @@ const TomeiStepper = () => {
         ) : (
           <div>
             <Container maxWidth="md" className="pt-6">
-              {getStepContent(activeStep)}
+              {getStepContent(activeStep, formDetails, setFormDetails, error, setError)}
             </Container>
             <Container maxWidth="md" className={`${classes.buttonContainer} pt-6`}>
               <button
-                onClick={handleNext}
-                className={`button is-info is-active is-pulled-right mr-6 ${styles.saveButton}`}
+                onClick={validateFormDetails}
+                className={`button is-info is-active is-pulled-right mr-6 
+                  ${loading && "is-loading"}
+                  ${styles.saveButton}`}
                 >
                 <span>{activeStep === steps.length - 1 ? 'Finish' : 'Save & Next'}</span>
                 {activeStep < steps.length - 1 && 
@@ -187,4 +252,17 @@ const TomeiStepper = () => {
   );
 };
 
-export default TomeiStepper;
+const mapStateToProps = (state) => ({
+  user: state.user,
+});
+
+const mapActionToProps = {
+  addUserAccount,
+  uploadAvatar,
+  setLoading
+};
+
+export default connect(
+  mapStateToProps,
+  mapActionToProps
+)(TomeiStepper);

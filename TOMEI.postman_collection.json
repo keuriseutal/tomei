@@ -1,0 +1,243 @@
+{
+	"info": {
+		"_postman_id": "a8fb0e8c-c87c-48b7-b3f4-d5e52f6da752",
+		"name": "TOMEI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ADD user",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const requestBody = {\r",
+							"    \"name\": \"{{$randomFirstName}}\",\r",
+							"    \"email\": \"{{$randomExampleEmail}}\",\r",
+							"    \"password\": \"{{$randomPassword}}\",\r",
+							"    \"avatar\": \"{{$randomAvatarImage}}\"\r",
+							"}\r",
+							"\r",
+							"pm.environment.set(\"requestBody\", JSON.stringify(requestBody));\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{requestBody}}"
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/user",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET users",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}/api/user",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EDIT user",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n    \"email\": \"Michael@example.org\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/user/10",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE user",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/user/28",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"28"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPLOAD Avatar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "avatar",
+							"type": "file",
+							"src": [],
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/user/upload/avatar",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"upload",
+						"avatar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Avatar",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}/api/user/avatar/6.jpg",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"avatar",
+						"6.jpg"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Avatar",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}/api/user/avatar/1.jpg",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"avatar",
+						"1.jpg"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

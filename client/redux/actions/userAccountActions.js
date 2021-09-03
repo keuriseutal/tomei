@@ -4,6 +4,7 @@ import {
     ADD_USER_ACCOUNT,
     UPDATE_USER_ACCOUNT,
     DELETE_USER_ACCOUNT,
+    ADD_USER_ACCOUNT_AVATAR,
     USER_ACCOUNT_ERROR,
     USER_ACCOUNT_LOADING
 } from './types';
@@ -19,7 +20,6 @@ export const getUserAccounts = () => async (dispatch) => {
             payload: data
         });
     } catch(error) {
-        console.log(error);
         dispatch({
             type: USER_ACCOUNT_ERROR,
             payload: error.response
@@ -47,7 +47,7 @@ export const addUserAccount = (userAccount) => async (dispatch) => {
     try {
         const response = await fetch(`${serverURL}/api/user`, {
             method: 'POST',
-            body: JSON.stringify(userAccount),
+            body: JSON.stringify({...userAccount, avatar: userAccount.avatar.get("avatar").name}),
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -95,6 +95,24 @@ export const updateUserAccount = (userAccount) => async (dispatch) => {
         dispatch({
             type: UPDATE_USER_ACCOUNT,
             payload: data
+        });
+    } catch(error) {
+        dispatch({
+            type: USER_ACCOUNT_ERROR,
+            payload: error.response
+        });
+    }    
+};
+
+export const uploadAvatar = (avatar) => async (dispatch) => {
+    try {
+        const response = await fetch(`${serverURL}/api/user/upload/avatar`, {
+            method: 'POST',
+            body: avatar
+        });
+        const data = await response.json();
+        dispatch({
+            type: ADD_USER_ACCOUNT_AVATAR
         });
     } catch(error) {
         dispatch({
